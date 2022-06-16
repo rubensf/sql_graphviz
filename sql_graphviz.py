@@ -110,14 +110,14 @@ def grammar():
     add_fkey_def = (CaselessLiteral("ALTER")
         + CaselessLiteral("TABLE")
         + CaselessLiteral("ONLY")
-        + tablename_def.setResultsName("tableName")
+        + fkey_cols.setResultsName("tableName")
         + CaselessLiteral("ADD")
         + CaselessLiteral("CONSTRAINT")
         + (Word(alphanums + "_") | QuotedString("\""))
         + CaselessLiteral("FOREIGN")
         + CaselessLiteral("KEY")
         + "(" + fkey_cols.setResultsName("keyName") + ")"
-        + "REFERENCES" + tablename_def.setResultsName("fkTable")
+        + "REFERENCES" + fkey_cols.setResultsName("fkTable")
         + "(" + fkey_cols.setResultsName("fkCol") + ")"
         + Optional(CaselessLiteral("DEFERRABLE"))
         + Optional(CaselessLiteral("ON") + "UPDATE" + delete_restrict_action)
